@@ -5,7 +5,7 @@
   "type": "module",
  
   "scripts": {
-     "start": "npm run dev",
+     "start": "npx http-server ./dist",
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
