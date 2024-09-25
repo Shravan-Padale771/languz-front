@@ -1,0 +1,57 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Dependency directories
+node_modules/
+
+# Production build
+/build
+
+# Testing
+/coverage
+
+# Misc
+.DS_Store
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Optional npm cache directory
+.npm
+
+# IDE or editor-specific files
+/.idea
+.vscode/
+*.swp
+*.swo
+
+# Mac system files
+*.DS_Store
+
+# Ignore environment files
+.env
+
+# Ignore temporary files
+*.tmp
+*.temp
+
+# Ignore lock files
+package-lock.json
+yarn.lock
+
+# Ignore eslint cache
+.eslintcache
+
+# Ignore parcel cache
+.cache
+
+# Ignore .next directory if using Next.js
+.next/
+
+# Ignore build directories (for both dev and prod)
+dist/
