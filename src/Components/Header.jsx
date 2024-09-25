@@ -11,7 +11,7 @@ function Header() {
           </Link>
             </span>
             <div className='flex gap-12 max-md:gap-6 text-white font-semibold '>
-            <p className='justify-between float-right  max-md:font-light '>
+            <p className='justify-between float-right max-md:text-sm  max-md:font-light '>
             <Link to="/TexttoText" className="hover:text-gray-300 ">
             Translate Text
           </Link>
