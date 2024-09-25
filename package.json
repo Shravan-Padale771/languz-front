@@ -3,9 +3,9 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "main": "index.html",
+ 
   "scripts": {
-     "start": "npx run dev",
+     "start": "npx http-server ./dist",
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
