@@ -16,7 +16,7 @@ function ImagetoText() {
     formData.append('lang', lang);
 
     try {
-      const response = await fetch('https://languz-server-production.up.railway.app/api/upload', {
+      const response = await fetch('https://languz-server.onrender.com/api/upload', {
         method: 'POST',
         body: formData,
       });
