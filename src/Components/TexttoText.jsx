@@ -16,7 +16,7 @@ function TexttoText() {
     formData.append('lang', lang);
   
     try {
-      const response = await fetch('http://localhost:5000/api/uploadText', {
+      const response = await fetch('https://languz-server.onrender.com/api/uploadText', {
         method: 'POST',
         body: formData,
       });
