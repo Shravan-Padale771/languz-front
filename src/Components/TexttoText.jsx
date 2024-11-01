@@ -1,49 +1,50 @@
 import React, { useState } from 'react';
 import Textarea from './Textarea';
-import Input from './Input';
+import Textupload from './Textupload';
+import Footer from './Footer';
 
-
-
-function ImagetoText() {
+function TexttoText() {
   const [translatedText, setTranslatedText] = useState('');
-  const [Text, setText] = useState('');
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  // Function to handle file upload and OCR process
-  async function processImg(img,lang) {
+  async function processText(text,lang) {
     setLoading(true)
+    setError("")
     const formData = new FormData();
-    formData.append('image', img);
+    formData.append('text', text);
     formData.append('lang', lang);
-
+  
     try {
-      const response = await fetch('https://languz-server.onrender.com/api/upload', {
+      const response = await fetch('http://localhost:5000/api/uploadText', {
         method: 'POST',
         body: formData,
       });
 
+      const contentType = response.headers.get('content-type');
+    if (!contentType || !contentType.includes('application/json')) {
+      throw new Error('Server did not return JSON');
+    }
+  
       if (!response.ok) {
-        throw new Error('Error processing image');
+        const errorData = await response.json();
+        throw new Error(`Error processing text: ${errorData.message || 'Unknown error'}`);
       }
-
+  
       const data = await response.json();
-      setText(data.text); // Display recognized text
-      setTranslatedText(data.translatedText);
+    //   console.log('Received translated text:', data.translatedText); // Log the translated text
+      setTranslatedText(data.translatedText); // Update translated text
       setLoading(false)
     } catch (error) {
-      setError('Error processing image or language not detected.');
+      setError('Keep typing or Please try again.');
       console.error(error);
     }
   }
+  
 
   return (
-    <div className='h-[600px] pt-28' >
-      <h2 className='text-3xl font-semibold text-center m-4 mb-20'>Image text translator</h2>
-     
-
-      <Input uploadImage={processImg} />
-
+    <div className='pt-28'>
+      <Textupload textProcess={processText} heading="text to text" />
       {loading && (
         <div className="flex items-center justify-center mt-5">
           <svg className="animate-spin h-8 w-8 text-blue-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
@@ -65,15 +66,18 @@ function ImagetoText() {
         </div>
       )}
 
+      {error ? <p className='text-center text-red-800'>{error}</p> : null} 
 
-      {error && <p className='text-center text-red-800'>{error}</p>}
+      {!loading && translatedText && (
+      translatedText && <Textarea heading="Translated" text={translatedText} />
+      )}
+      
 
-     {Text ? <Textarea heading="Image Your Text" text={Text} /> : null }
-     {translatedText ? <Textarea heading="Translated" text={translatedText} /> : null }
-
-     
+      <Footer/>
     </div>
   );
+  
+  
 }
 
-export default ImagetoText;
+export default TexttoText;
